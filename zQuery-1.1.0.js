@@ -90,6 +90,30 @@ ZQObject.prototype = {
 			}
 			return this;
 		}
+	},
+	append : function(zqObject){ 
+		var srcElem = this.data[0];
+		var tarElem = zqObject.data[0];
+		srcElem.appendChild(tarElem);
+		return this;
+	},
+	appendTo : function(zqObject){ 
+		var srcElem = zqObject.data[0];
+		var tarElem = this.data[0];
+		srcElem.appendChild(tarElem);
+		return this;
+	},
+	insertBefore : function(zqObject){ 
+		var newElem = this.data[0];
+		var oldElem = zqObject.data[0];
+		var parentElem = oldElem.parentNode;
+		parentElem.insertBefore(newElem,oldElem);
+		return this;
+	},
+	remove :function(){ 
+		var removeElem = this.data[0];
+		var parentElem = removeElem.parentNode;
+		parentElem.removeChild(removeElem);
 	}
 }
 var $ = function(selector){ 
@@ -109,6 +133,13 @@ var $ = function(selector){
 	}else{ 
 		var elems = document.getElementsByTagName(selector);
 		this.zqObject.data = elems;
+	}
+	if( selector.indexOf('<') == 0 && selector.lastIndexOf('>') == selector.length-1){ 
+		var elem = selector.substring(1,selector.indexOf('>'));
+		var newElem = document.createElement(elem);
+		var content = selector.substring( selector.indexOf('>')+1 ,selector.lastIndexOf('<'));
+		newElem.innerHTML = content;
+		this.zqObject.data.push(newElem);
 	}
 	return zqObject;
 }
