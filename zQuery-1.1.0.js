@@ -114,6 +114,23 @@ ZQObject.prototype = {
 		var removeElem = this.data[0];
 		var parentElem = removeElem.parentNode;
 		parentElem.removeChild(removeElem);
+	},
+	slideUp : function(speed){
+		var s = speed || 300;
+		var l = 30 / s * height; 
+		var elem = this.data[0];
+		var h = elem.offsetHeight;
+		var oldh = h;
+		var interval = setInterval(
+			function(){ 
+				h = h-l;
+				if( h<=0){ 
+					elem.style.display = "none";
+					elem.style.height = oldh + "px";
+					clearInterval(interval);
+
+				}
+			},30);
 	}
 }
 var $ = function(selector){ 
@@ -130,16 +147,16 @@ var $ = function(selector){
 				this.zqObject.data.push(elems[i]);
 			}
 		}
-	}else{ 
-		var elems = document.getElementsByTagName(selector);
-		this.zqObject.data = elems;
-	}
-	if( selector.indexOf('<') == 0 && selector.lastIndexOf('>') == selector.length-1){ 
+	}else if( selector.indexOf('<') == 0 && selector.lastIndexOf('>') == selector.length-1){ 
 		var elem = selector.substring(1,selector.indexOf('>'));
 		var newElem = document.createElement(elem);
 		var content = selector.substring( selector.indexOf('>')+1 ,selector.lastIndexOf('<'));
 		newElem.innerHTML = content;
 		this.zqObject.data.push(newElem);
+	}else{ 
+		var elems = document.getElementsByTagName(selector);
+		this.zqObject.data = elems;
 	}
+	
 	return zqObject;
 }
