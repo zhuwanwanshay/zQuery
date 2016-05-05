@@ -5,13 +5,33 @@
 	<title>Test</title>
 	<script src="zQuery-1.1.0.js"></script>
 	<script type="text/javascript">
-		window.onload = function(){
-			/*$('#myDiv').append($("<div>aaaaaaaaaaaaaaaaa</div>"));
+		/*window.onload = function(){
+			$('#myDiv').append($("<div>aaaaaaaaaaaaaaaaa</div>"));
 			$('<div>ssssaa</div>').appendTo($('#myDiv'));
 			$('<div>aaaaaaaaaaaaaaaaa</div>').insertBefore($('#myDiv'));
-			$("#myDiv").remove();*/
+			$("#myDiv").remove();
 			
-
+		}*/
+		//function slideUp(){ 
+		$("#btnslideUp").bind("click",function(){ 
+			$("#myDiv").slideUp(3000);
+		});
+			
+		//}
+		function slideDown(){ 
+			$("#myDiv").slideDown(3000);
+		}
+		function hide(){ 
+			$("#myDiv").hide(3000);
+		}
+		function show(){ 
+			$("#myDiv").show(3000);
+		}
+		function fadeOut(){ 
+			$("#myDiv").fadeOut(3000);
+		}
+		function fadeIn(){ 
+			$("#myDiv").fadeIn(3000);
 		}
 	</script>
 	<style type="text/css">
@@ -19,6 +39,7 @@
 			width: 200px;
 			height: 500px;
 			background-color: #afa;
+			opacity: 1;
 		}
 		.myLi{ 
 			font-size: 48px;
@@ -29,6 +50,11 @@
 <body>
 	<div id="myDiv" class="myDiv myLi" >
 	dfsdfsdfsdfsd</div>
-	<input type="button" id="btn" value="slideUp()">
+	<input type="button" id="btnslideUp" onclick="slideUp()" value="slideUp">
+	<input type="button" id="btn" onclick="slideDown()" value="slideDown">
+	<input type="button" id="btn" onclick="hide()" value="hide">
+	<input type="button" id="btn" onclick="show()" value="show">
+	<input type="button" id="btn" onclick="fadeOut()" value="fadeOut">
+	<input type="button" id="btn" onclick="fadeIn()" value="fadeIn">
 </body>
 </html>

@@ -117,20 +117,115 @@ ZQObject.prototype = {
 	},
 	slideUp : function(speed){
 		var s = speed || 300;
-		var l = 30 / s * height; 
 		var elem = this.data[0];
-		var h = elem.offsetHeight;
-		var oldh = h;
-		var interval = setInterval(
-			function(){ 
-				h = h-l;
-				if( h<=0){ 
+		var height = elem.offsetHeight;
+		var oldh = height;
+		var l = 30 / s * height; 
+		var interval = setInterval(function(){ 
+				height -= l;
+				elem.style.height = height + "px";
+				if( height<=0){ 
 					elem.style.display = "none";
 					elem.style.height = oldh + "px";
 					clearInterval(interval);
 
 				}
 			},30);
+	},
+	slideDown : function(speed){ 
+		var elem = this.data[0];
+		var height = parseInt(elem.style.height);
+		var s = speed || 300;
+		var l = 30/s*height;
+		elem.style.height = 0+"px";
+		elem.style.display = "block";
+		var interval = setInterval(function(){ 
+			elem.style.height = (elem.offsetHeight+l)+"px";
+			if( elem.offsetHeight >= height){ 
+				elem.style.height = height +"px";
+				clearInterval(interval);
+			}
+		},30);
+	},
+	hide : function(speed){ 
+		var elem = this.data[0];
+		var height = elem.offsetHeight;
+		var width = elem.offsetWidth;
+		var s = speed || 300;
+		var h = 30 / s * height;
+		var w = 30 / s * width;
+		var oldH = height;
+		var oldW = width;
+		var interval = setInterval(function(){ 
+			height -= h;
+			width -=w;
+			elem.style.height = height + "px";
+			elem.style.width = width + "px";
+			if( height <= 0 || width <= 0){ 
+				clearInterval(interval);
+				elem.style.display = "none";
+				elem.style.height = oldH + "px";
+				elem.style.width = oldW + "px";
+			}
+		},30);
+	},
+	show : function(speed){ 
+		var elem = this.data[0];
+		var height = parseInt(elem.style.height);
+		var width = parseInt(elem.style.width);
+		var s = speed || 300;
+		var h = 30 / s * height;
+		var w = 30 / s * width;
+		elem.style.height = 0 + "px";
+		elem.style.width = 0 + "px";
+		elem.style.display = "block";
+		var interval = setInterval(function(){ 
+			elem.style.height = (elem.offsetHeight + h) + "px";
+			elem.style.width = (elem.offsetWidth + w) + "px";
+			if( elem.offsetHeight >= height || elem.offsetWidth >= width){ 
+				elem.style.height = height + "px";
+				elem.style.width = width + "px";
+				clearInterval(interval);
+			}
+		},30);
+	},
+	fadeOut : function (speed){ 
+		var s = speed || 300;
+		var elem = this.data[0];
+		var op = 100;
+		var l = 30 / s * op;
+		var interval = setInterval(function(){ 
+			op -= l;
+			//window.getComputedStyle(elem).opacity = op/100;
+			elem.style.opacity = op/100;
+			if(op <= 0){ 
+				elem.style.display = "none";
+				clearInterval(interval);
+			}
+		},30);
+	},
+	fadeIn : function(speed){ 
+		var s = speed || 300;
+		var elem = this.data[0];
+		var l = 30 / s * 100;
+		var op = 0;
+		elem.style.opacity = 0;
+		elem.style.display = "block";
+		var interval = setInterval(function(){ 
+			op += l;
+			elem.style.opacity = op/100;
+			if(op >= 100){
+				elem.style.opacity = 1;
+				elem.style.display = "block";
+				clearInterval(interval);
+			}
+		},30);
+	},
+	bind : function(eventName,fn){ 
+		for( var i = 0; i < this.data.length; i++){ 
+			var elem = this.data[i];
+			elem.addEventListener("eventName",fn);
+		}
 	}
 }
 var $ = function(selector){ 
