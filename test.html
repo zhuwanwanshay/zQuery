@@ -12,12 +12,15 @@
 			$("#myDiv").remove();
 			
 		}*/
-		//function slideUp(){ 
-		$("#btnslideUp").bind("click",function(){ 
+		window.onload = function(){ 
+			$("#btnslideUp").bind("click",function(){ 
 			$("#myDiv").slideUp(3000);
-		});
+		});	
+		}
+		/*function slideUp(){ 
+			$("#myDiv").slideUp(3000);
+		}*/
 			
-		//}
 		function slideDown(){ 
 			$("#myDiv").slideDown(3000);
 		}
@@ -50,7 +53,8 @@
 <body>
 	<div id="myDiv" class="myDiv myLi" >
 	dfsdfsdfsdfsd</div>
-	<input type="button" id="btnslideUp" onclick="slideUp()" value="slideUp">
+	<input type="button" id="btnslideUp"  value="slideUp">
+	<!--<input type="button" id="btn" onclick="slideUp()" value="slideUp">-->
 	<input type="button" id="btn" onclick="slideDown()" value="slideDown">
 	<input type="button" id="btn" onclick="hide()" value="hide">
 	<input type="button" id="btn" onclick="show()" value="show">

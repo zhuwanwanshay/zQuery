@@ -224,7 +224,7 @@ ZQObject.prototype = {
 	bind : function(eventName,fn){ 
 		for( var i = 0; i < this.data.length; i++){ 
 			var elem = this.data[i];
-			elem.addEventListener("eventName",fn);
+			elem.addEventListener(eventName,fn,false);
 		}
 	}
 }
